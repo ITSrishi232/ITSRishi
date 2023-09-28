@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impress Your Crush</title>
+    <style>
+        /* Overall Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #ffb88c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Love Note Styles */
+        #loveNote {
+            background-color: rgba(255, 105, 180, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+            animation: heartbeat 2s infinite;
+        }
+
+        #loveNote:hover {
+            transform: scale(1.05);
+            animation: none;
+            background-color: rgba(255, 20, 147, 0.95);
+            box-shadow: 0 4px 40px rgba(255, 20, 147, 0.7);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Message Styles */
+        .message {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            margin: 20px 10px;
+            width: 180px;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff007f, #ff1493);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: -1;
+        }
+
+        .button:hover:before {
+            transform: translateX(0);
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .yes-button {
+            background: linear-gradient(45deg, #ff1493, #ff007f);
+            color: #fff;
+        }
+
+        .no-button {
+            background: linear-gradient(45deg, #ff69b4, #ff1f9e);
+            color: #fff;
+        }
+
+        .time-button {
+            background: linear-gradient(45deg, #6f42c1, #5e35b1);
+            color: #fff;
+        }
+
+        /* Additional Styles for an Attractive Look */
+        h1 {
+            font-size: 54px;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        p {
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Heart Icon Styles */
+        .heart-icon {
+            font-size: 54px;
+            color: #ff1493;
+        }
+
+        /* Pink Box Styles */
+        .pink-box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .pink-box {
+            background-color: #ff69b4;
+            width: 400px;
+            height: 400px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            font-size: 28px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite, fadeIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .pink-box-message {
+            font-size: 24px;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Spread Item Styles */
+        .spread-item {
+            font-size: 40px;
+            color: #ff1493;
+            position: absolute;
+            animation: spread 2s linear;
+        }
+
+        @keyframes spread {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-400px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loveNote">
+        <h1><span class="heart-icon">♥</span> Hey there! <span class="heart-icon">♥</span></h1>
+        <p class="message">I have a crush on you:<br> If you are interested in me, click on Yes</p>
+        <div class="button-container">
+            <button class="button yes-button" onclick="createPinkBox()">Yes</button>
+            <button class="button no-button" onclick="teleportNo()">No, sorry</button>
+            <button class="button time-button" id="timeButton">Want some time</button>
+        </div>
+    </div>
+
+    <script>
+        const loveNote = document.getElementById("loveNote");
+
+        function createPinkBox() {
+            // Create a new page with the question and options
+            const newPage = document.createElement("div");
+            newPage.className = "pink-box-container";
+            const pinkBox = document.createElement("div");
+            pinkBox.className = "pink-box";
+            pinkBox.innerHTML = `
+                <p>Really you came here? I'm so glad to see you! Thank you so much. I've been waiting for this moment for years. Today is the happiest day of my life.</p>
+                <div class="button-container">
+                    <button class="button yes-button" onclick="showMessage()">Yes</button>
+                    <button class="button no-button" onclick="showNoMessage()">No</button>
+                </div>
+                <div class="contact-info">If you want to contact me, here's my email: mailtoravis272@gmail.com</div>
+            `;
+
+            newPage.appendChild(pinkBox);
+
+            // Create spread effect with smileys and hearts
+            for (let i = 0; i < 10; i++) {
+                const item = document.createElement("div");
+                item.className = "spread-item";
+                if (i % 2 === 0) {
+                    item.textContent = "😄";
+                } else {
+                    item.textContent = "♥";
+                }
+                document.body.appendChild(item);
+            }
+
+            // Replace the current page with the new page
+            document.body.innerHTML = "";
+            document.body.appendChild(newPage);
+        }
+
+        function teleportNo() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    loveNote.style.transform = "translate(" + (Math.random() * 200 - 100) + "px," + (Math.random() * 200 - 100) + "px)";
+                }, i * 100);
+            }
+        }
+
+        function showNoMessage() {
+            const message = document.createElement("div");
+            message.className = "pink-box-message";
+            message.textContent = "You have to click yes; you have only one choice.";
+            document.querySelector(".pink-box").appendChild(message);
+
+            setTimeout(() => {
+                // After 4 seconds, return to the original screen
+                createPinkBox();
+            }, 4000);
+        }
+
+        function showMessage() {
+            // Handle the "Yes" button action here
+            const newPage = document.createElement("div");
+            newPage.className = "pink-box-container";
+            const pinkBox = document.createElement("div");
+            pinkBox.className = "pink-box";
+            pinkBox.innerHTML = `
+                <p>From RISHI</p>
+                <p>Stay safe, bye-bye</p>
+                <p>Mail me: mailtoravis272@gmail.com</p>
+            `;
+            newPage.appendChild(pinkBox);
+
+            // Create spread effect with smileys and hearts
+            for (let i = 0; i < 10; i++) {
+                const item = document.createElement("div");
+                item.className = "spread-item";
+                if (i % 2 === 0) {
+                    item.textContent = "😄";
+                } else {
+                    item.textContent = "♥";
+                }
+                document.body.appendChild(item);
+            }
+
+            // Replace the current page with the new page
+            document.body.innerHTML = "";
+            document.body.appendChild(newPage);
+        }
+
+        document.getElementById("timeButton").addEventListener("click", function () {
+            const response = prompt("You want some time... How much time do you need?");
+            if (response) {
+                alert(`Take all the time you need: "${response}"`);
+            }
+        });
+    </script>
+</body>
+</html>
